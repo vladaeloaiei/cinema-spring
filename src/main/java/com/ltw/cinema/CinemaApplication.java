@@ -26,8 +26,8 @@ public class CinemaApplication {
         PropertyMap<Room, RoomDto> roomPropertyMap = new PropertyMap<Room, RoomDto>() {
             protected void configure() {
 
-                using(roomTypeToNumberOfColumnsConverter)
-                        .map(source.getRoomType(), destination.getNumberOfColumns());
+//                using(roomTypeToNumberOfColumnsConverter)
+//                        .map(source.getRoomType(), destination.getNumberOfColumns());
 
 //                using(roomTypeToNumberOfRowsConverter)
 //                        .map().setNumberOfRows(this.source("getRoomType"));
