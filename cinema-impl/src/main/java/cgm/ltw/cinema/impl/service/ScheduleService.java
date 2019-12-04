@@ -1,10 +1,8 @@
 package cgm.ltw.cinema.impl.service;
 
 import cgm.ltw.cinema.impl.model.Schedule;
-import cgm.ltw.cinema.impl.model.User;
 import cgm.ltw.cinema.impl.repository.ScheduleRepository;
 import com.ltw.cinema.api.dto.ScheduleDto;
-import com.ltw.cinema.api.dto.UserDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
