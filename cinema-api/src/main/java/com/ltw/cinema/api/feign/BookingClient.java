@@ -27,6 +27,6 @@ public interface BookingClient {
     @DeleteMapping()
     void delete(@RequestBody BookingDto bookingDto);
 
-    @DeleteMapping()
+    @DeleteMapping()//TODO??
     void deleteByEmailAndScheduleId(@RequestParam("email") String email, @RequestParam("bookingId") Long scheduleId);
 }

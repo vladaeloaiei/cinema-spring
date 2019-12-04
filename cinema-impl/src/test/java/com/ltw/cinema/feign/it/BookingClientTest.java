@@ -1,6 +1,6 @@
 package com.ltw.cinema.feign.it;
 
-import cgm.ltw.cinema.impl.CinemaApplication;
+import cgm.ltw.cinema.impl.CinemaApplicationServer;
 import com.ltw.cinema.api.feign.BookingClient;
 import feign.FeignException;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class BookingClientTest {
     @Configuration
-    @Import({CinemaApplication.class})
+    @Import({CinemaApplicationServer.class})
     public static class TestConfiguration {
     }
 

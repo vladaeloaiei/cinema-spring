@@ -9,6 +9,7 @@ import com.ltw.cinema.api.dto.BookingDto;
 import com.ltw.cinema.api.feign.MovieClient;
 import com.ltw.cinema.api.types.RoomType;
 import com.ltw.cinema.gui.CinemaGUIApplication;
+import com.ltw.cinema.gui.utils.Seat;
 import javafx.util.Pair;
 
 import javax.swing.*;
@@ -78,17 +79,15 @@ public class CasierSalaPanel extends JPanel {
 
             for (String c : columnsArr) {
                 int column = Integer.parseInt(c);
-                JLabel jl = new JLabel();
-                jl.setForeground(Color.GREEN);
-                jl.setBackground(Color.CYAN);
+                Seat jl = new Seat();
                 jl.setName("rand:" + row + ":loc:" + column);
                 if (column > (nrColoane / 2)) {
                     if (email.equals(selectedEmail)) {
-                        formatPlaceLabel(jl, "yellow" + column);
+                        jl.setImageName("yellow" + column);
                         CasierMainPanel.cumparaButton.setEnabled(true);
                         CasierWorkPanel.selectedSpots.add(new Pair<>(row, column));
                     } else {
-                        formatPlaceLabel(jl, "gray" + column);
+                        jl.setImageName("gray" + column);
                     }
 
                     int x = (column - 1) * (25 + spatiuColoana) + spatiuPerete + spatiuCuloar;
@@ -101,15 +100,15 @@ public class CasierSalaPanel extends JPanel {
                     this.repaint();
                     this.revalidate();
                     if (getComponentAt(this, new Point(x, y)) != null) {
-                        System.out.println("CEEEasdasd::: x:"+x + "  y:" +y);
+                        //System.out.println("CEEEasdasd::: x:"+x + "  y:" +y);
                     }
                 } else {
                     if (email.equals(selectedEmail)) {
-                        formatPlaceLabel(jl, "yellow" + column);
+                        jl.setImageName("yellow" + column);
                         CasierMainPanel.cumparaButton.setEnabled(true);
                         CasierWorkPanel.selectedSpots.add(new Pair<>(row, column));
                     } else {
-                        formatPlaceLabel(jl, "gray" + column);
+                        jl.setImageName("gray" + column);
                     }
 
                     int x = (column - 1) * (25 + spatiuColoana) + spatiuPerete;
@@ -124,7 +123,7 @@ public class CasierSalaPanel extends JPanel {
                     this.repaint();
                     this.revalidate();
                     if (getComponentAt(this, new Point(x, y)) != null) {
-                        System.out.println("CEEE::: x:"+x + "  y:" +y);
+                        //System.out.println("CEEE::: x:"+x + "  y:" +y);
                     }
 
                 }
@@ -138,22 +137,20 @@ public class CasierSalaPanel extends JPanel {
         //System.out.print("Component list: "+ this.countComponents());
         for (int i = 0; i < nrColoane; ++i) {
             for (int j = 0; j < nrRanduri; ++j) {
-                JLabel jl = new JLabel();
-                jl.setForeground(Color.GREEN);
-                jl.setBackground(Color.CYAN);
+                Seat jl = new Seat();
                 jl.setName("rand:" + (int) (j + 1) + ":loc:" + (int) (i + 1));
                 if (i >= (nrColoane / 2)) {
                     int x = i * (25 + spatiuColoana) + spatiuPerete + spatiuCuloar;
                     int y = j * (25 + spatiuRand) + 10;
                     if (getComponentAt(this, new Point(x, y)) == null) {
-                        formatPlaceLabel(jl, "green" + (int) (i + 1));
+                        jl.setImageName("green" + (int) (i + 1));
                         if (selectedEmail.equals(" ")) {
                             jl.addMouseListener(new MouseAdapter() {
                                 @Override
                                 public void mousePressed(MouseEvent e) {
                                     String nume = e.getComponent().getName();
                                     String[] strArray = nume.split(":");
-                                    selectColumn(Integer.parseInt(strArray[1]), Integer.parseInt(strArray[3]), (JLabel) e.getComponent());
+                                    selectColumn(Integer.parseInt(strArray[1]), Integer.parseInt(strArray[3]), (Seat) e.getComponent());
                                 }
                             });
                         }
@@ -173,14 +170,14 @@ public class CasierSalaPanel extends JPanel {
                     int x = i * (25 + spatiuColoana) + spatiuPerete;
                     int y = j * (25 + spatiuRand) + 10;
                     if (getComponentAt(this, new Point(x, y)) == null) {
-                        formatPlaceLabel(jl, "green" + (int) (i + 1));
+                        jl.setImageName("green" + (int) (i + 1));
                         if (selectedEmail.equals(" ")) {
                             jl.addMouseListener(new MouseAdapter() {
                                 @Override
                                 public void mousePressed(MouseEvent e) {
                                     String nume = e.getComponent().getName();
                                     String[] strArray = nume.split(":");
-                                    selectColumn(Integer.parseInt(strArray[1]), Integer.parseInt(strArray[3]), (JLabel) e.getComponent());
+                                    selectColumn(Integer.parseInt(strArray[1]), Integer.parseInt(strArray[3]), (Seat) e.getComponent());
                                 }
                             });
                         }
@@ -205,7 +202,7 @@ public class CasierSalaPanel extends JPanel {
         this.revalidate();
     }
 
-    private void selectColumn(int row, int column, JLabel label) {
+    private void selectColumn(int row, int column, Seat label) {
         if (CasierWorkPanel.emailList.getModel().getSelectedItem().toString().equals(" ")) {
             int pos = -1;
             int i = -1;
@@ -218,10 +215,10 @@ public class CasierSalaPanel extends JPanel {
             }
 
             if (pos != -1) {
-                formatPlaceLabel(label, "green" + column);
+                label.setImageName("green" + column);
                 CasierWorkPanel.selectedSpots.remove(pos);
             } else {
-                formatPlaceLabel(label, "yellow" + column);
+                label.setImageName("yellow" + column);
                 CasierWorkPanel.selectedSpots.add(new Pair<>(row, column));
             }
             if (!CasierWorkPanel.selectedSpots.isEmpty()) {
@@ -250,18 +247,6 @@ public class CasierSalaPanel extends JPanel {
             }
         }
         return comp;
-    }
-
-    private void formatPlaceLabel(JLabel jl, String numeIcon) {
-        String path = "locuri/" + numeIcon + ".png";
-        //System.out.println(path);
-        ImageIcon imageIcon = new ImageIcon(path); // load the image to a imageIcon
-        Image image = imageIcon.getImage(); // transform it
-        imageIcon = new ImageIcon(image.getScaledInstance(25, 25, Image.SCALE_SMOOTH));  // scale it the smooth way
-        //jl.setIcon(imageIcon);
-        jl.setPreferredSize(new Dimension(25, 25));
-        jl.setForeground(Color.GREEN);
-        jl.setBackground(Color.CYAN);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -19,6 +19,7 @@
         <module>cinema-api</module>
         <module>cinema-gui</module>
         <module>cinema-impl</module>
+        <module>cinema-security</module>
     </modules>
 
     <properties>

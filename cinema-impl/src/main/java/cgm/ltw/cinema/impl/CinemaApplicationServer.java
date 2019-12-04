@@ -8,10 +8,10 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 @EnableFeignClients(basePackages = "com.ltw.cinema.api.feign")
-public class CinemaApplication {
+public class CinemaApplicationServer {
 
     public static void main(String[] args) {
-        SpringApplication.run(CinemaApplication.class, args);
+        SpringApplication.run(CinemaApplicationServer.class, args);
     }
 
     @Bean

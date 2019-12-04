@@ -10,7 +10,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>cinema.api</artifactId>
+    <artifactId>cinema-api</artifactId>
 
     <dependencies>
         <dependency>
