@@ -1,10 +1,8 @@
-package cgm.ltw.cinema.impl.service;
+package com.ltw.cinema.impl.service;
 
-import cgm.ltw.cinema.impl.model.Room;
-import cgm.ltw.cinema.impl.model.Schedule;
-import cgm.ltw.cinema.impl.repository.RoomRepository;
+import com.ltw.cinema.impl.model.Room;
+import com.ltw.cinema.impl.repository.RoomRepository;
 import com.ltw.cinema.api.dto.RoomDto;
-import com.ltw.cinema.api.dto.ScheduleDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

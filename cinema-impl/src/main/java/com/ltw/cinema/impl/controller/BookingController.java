@@ -1,7 +1,7 @@
-package cgm.ltw.cinema.impl.controller;
+package com.ltw.cinema.impl.controller;
 
-import cgm.ltw.cinema.impl.service.BookingService;
 import com.ltw.cinema.api.dto.BookingDto;
+import com.ltw.cinema.impl.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RequestMapping("/bookings")
 @RestController
@@ -44,9 +43,7 @@ public class BookingController {
 
     @PostMapping()
     public ResponseEntity<List<BookingDto>> save(@RequestBody List<BookingDto> bookingDtos) {
-        return ResponseEntity.ok(bookingDtos.stream()
-                .map(bookingDto -> bookingService.save(bookingDto))
-                .collect(Collectors.toList()));
+        return ResponseEntity.ok(bookingService.save(bookingDtos));
     }
 
     @DeleteMapping

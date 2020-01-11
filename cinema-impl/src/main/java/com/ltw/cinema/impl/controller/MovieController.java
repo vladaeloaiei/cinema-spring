@@ -1,9 +1,7 @@
-package cgm.ltw.cinema.impl.controller;
+package com.ltw.cinema.impl.controller;
 
-import cgm.ltw.cinema.impl.model.MovieDetail;
-import cgm.ltw.cinema.impl.service.MovieService;
-import com.ltw.cinema.api.dto.MovieDetailDto;
 import com.ltw.cinema.api.dto.MovieDto;
+import com.ltw.cinema.impl.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;

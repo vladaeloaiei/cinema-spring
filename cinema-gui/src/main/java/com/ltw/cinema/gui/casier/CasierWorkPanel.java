@@ -13,6 +13,7 @@ import com.ltw.cinema.api.feign.BookingClient;
 import com.ltw.cinema.api.feign.MovieDetailClient;
 import com.ltw.cinema.api.feign.ScheduleClient;
 import com.ltw.cinema.gui.CinemaGUIApplication;
+import com.ltw.cinema.gui.desktop.gui.CasierGUI;
 import javafx.util.Pair;
 
 import javax.swing.*;
@@ -229,12 +230,12 @@ public class CasierWorkPanel extends JPanel {
             Long movieId = currentMovieDtos.get(filmIndex).getId();
 
             dataList.removeAllItems();
-            CinemaGUIApplication.getContext().getBean(ScheduleClient.class).getAll()
+            CinemaGUIApplication.getContext().getBean(ScheduleClient.class).getAll(CasierGUI.getToken())
                     .stream()
                     .filter(scheduleDto -> scheduleDto.getMovie().getId().equals(movieId))
                     .forEach(scheduleDto -> dataList.addItem(getDateAsString(scheduleDto.getStartingAt())));
 
-            MovieDetailDto movieDetailDto = CinemaGUIApplication.getContext().getBean(MovieDetailClient.class).getByMovieId(movieId);
+            MovieDetailDto movieDetailDto = CinemaGUIApplication.getContext().getBean(MovieDetailClient.class).getByMovieId(movieId, CasierGUI.getToken());
 
             CasierMainPanel.numeFilmLabel.setText(movieDetailDto.getMovie().getName());
             CasierMainPanel.dataLansareLabel.setText("<html>Data lansare:<br> " + movieDetailDto.getLaunchDate() + "</html>");
@@ -255,7 +256,7 @@ public class CasierWorkPanel extends JPanel {
 
             timeList.removeAllItems();
 
-            CinemaGUIApplication.getContext().getBean(ScheduleClient.class).getAll()
+            CinemaGUIApplication.getContext().getBean(ScheduleClient.class).getAll(CasierGUI.getToken())
                     .stream()
                     .filter(scheduleDto -> scheduleDto.getMovie().getId().equals(movieId))
                     .filter(scheduleDto -> selectedDateValue.equals(getDateAsString(scheduleDto.getStartingAt())))
@@ -274,7 +275,7 @@ public class CasierWorkPanel extends JPanel {
             String selectedTime = evt.getItem().toString();
             String selectedData = dataList.getModel().getSelectedItem().toString();
 
-            Optional<ScheduleDto> scheduleDto = CinemaGUIApplication.getContext().getBean(ScheduleClient.class).getAll()
+            Optional<ScheduleDto> scheduleDto = CinemaGUIApplication.getContext().getBean(ScheduleClient.class).getAll(CasierGUI.getToken())
                     .stream()
                     .filter(e -> e.getMovie().getId().equals(movieId))
                     .filter(e -> selectedData.equals(getDateAsString(e.getStartingAt())))
@@ -284,7 +285,7 @@ public class CasierWorkPanel extends JPanel {
             if (scheduleDto.isPresent()) {
                 emailList.removeAllItems();
                 emailList.addItem(" ");
-                List<BookingDto> bookingDtos = CinemaGUIApplication.getContext().getBean(BookingClient.class).getByScheduleId(scheduleDto.get().getId());
+                List<BookingDto> bookingDtos = CinemaGUIApplication.getContext().getBean(BookingClient.class).getByScheduleId(scheduleDto.get().getId(), CasierGUI.getToken());
                 bookingDtos.stream()
                         .map(BookingDto::getEmail)
                         .filter(email -> !email.equals("default@cinema.ro"))
@@ -313,7 +314,7 @@ public class CasierWorkPanel extends JPanel {
         String selectedDate = dataList.getModel().getSelectedItem().toString();
         String selectedTime = timeList.getModel().getSelectedItem().toString();
 
-        Optional<ScheduleDto> scheduleDto = CinemaGUIApplication.getContext().getBean(ScheduleClient.class).getAll()
+        Optional<ScheduleDto> scheduleDto = CinemaGUIApplication.getContext().getBean(ScheduleClient.class).getAll(CasierGUI.getToken())
                 .stream()
                 .filter(e -> movieId.equals(e.getMovie().getId()))
                 .filter(e -> selectedDate.equals(getDateAsString(e.getStartingAt())))
@@ -324,7 +325,7 @@ public class CasierWorkPanel extends JPanel {
             JOptionPane.showMessageDialog(this, "S-a produs o eroare. Vă rog reporniți aplicația!",
                     "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            List<BookingDto> bookingDtos = CinemaGUIApplication.getContext().getBean(BookingClient.class).getByScheduleId(scheduleDto.get().getId());
+            List<BookingDto> bookingDtos = CinemaGUIApplication.getContext().getBean(BookingClient.class).getByScheduleId(scheduleDto.get().getId(), CasierGUI.getToken());
             CasierSalaPanel salaPanel = new CasierSalaPanel();
             locuriPanel.removeAll();
             locuriPanel.setLayout(new BorderLayout());
@@ -336,7 +337,7 @@ public class CasierWorkPanel extends JPanel {
     }
 
     private void onLoad() {
-        List<ScheduleDto> scheduleDtos = CinemaGUIApplication.getContext().getBean(ScheduleClient.class).getAll();
+        List<ScheduleDto> scheduleDtos = CinemaGUIApplication.getContext().getBean(ScheduleClient.class).getAll(CasierGUI.getToken());
 
         currentMovieDtos = scheduleDtos.stream()
                 .map(ScheduleDto::getMovie)

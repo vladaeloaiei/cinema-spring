@@ -1,4 +1,4 @@
-package cgm.ltw.cinema.impl.model;
+package com.ltw.cinema.impl.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

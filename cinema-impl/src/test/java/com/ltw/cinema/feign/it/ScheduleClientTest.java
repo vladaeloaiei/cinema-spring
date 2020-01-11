@@ -1,6 +1,6 @@
 package com.ltw.cinema.feign.it;
 
-import cgm.ltw.cinema.impl.CinemaApplicationServer;
+import com.ltw.cinema.impl.CinemaApplicationServer;
 import com.ltw.cinema.api.feign.ScheduleClient;
 import feign.FeignException;
 import org.junit.jupiter.api.Test;
@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Import;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+//TODO FIX NULL
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class ScheduleClientTest {
     @Configuration
@@ -24,11 +25,11 @@ public class ScheduleClientTest {
 
     @Test
     public void shouldRetrieveExistingScheduleViaFeignClient() {
-        assertNotNull(scheduleClient.getById(1L));
+        assertNotNull(scheduleClient.getById(1L, null));
     }
 
     @Test
     public void shouldReceiveExceptionOnRetrievingNonExistingScheduleViaFeignClient() {
-        assertThrows(FeignException.class, () -> scheduleClient.getById(-1L));
+        assertThrows(FeignException.class, () -> scheduleClient.getById(-1L, null));
     }
 }

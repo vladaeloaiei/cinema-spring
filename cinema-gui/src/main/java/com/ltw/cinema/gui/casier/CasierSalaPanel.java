@@ -9,6 +9,7 @@ import com.ltw.cinema.api.dto.BookingDto;
 import com.ltw.cinema.api.feign.MovieClient;
 import com.ltw.cinema.api.types.RoomType;
 import com.ltw.cinema.gui.CinemaGUIApplication;
+import com.ltw.cinema.gui.desktop.gui.CasierGUI;
 import com.ltw.cinema.gui.utils.Seat;
 import javafx.util.Pair;
 
@@ -233,7 +234,7 @@ public class CasierSalaPanel extends JPanel {
         } else {
             int filmIndex = CasierWorkPanel.filmList.getSelectedIndex();
             Long filmID = CasierWorkPanel.currentMovieDtos.get(filmIndex).getId();
-            int pret = CinemaGUIApplication.getContext().getBean(MovieClient.class).getById(filmID).getPrice();
+            int pret = CinemaGUIApplication.getContext().getBean(MovieClient.class).getById(filmID, CasierGUI.getToken()).getPrice();
             pret *= CasierWorkPanel.selectedSpots.size();
             CasierMainPanel.pretLabel.setText("PRET: " + pret + " LEI");
         }

@@ -1,9 +1,8 @@
-package cgm.ltw.cinema.impl.service;
+package com.ltw.cinema.impl.service;
 
-import cgm.ltw.cinema.impl.model.MovieDetail;
-import cgm.ltw.cinema.impl.repository.MovieDetailRepository;
+import com.ltw.cinema.impl.model.MovieDetail;
+import com.ltw.cinema.impl.repository.MovieDetailRepository;
 import com.ltw.cinema.api.dto.MovieDetailDto;
-import com.ltw.cinema.api.dto.MovieDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

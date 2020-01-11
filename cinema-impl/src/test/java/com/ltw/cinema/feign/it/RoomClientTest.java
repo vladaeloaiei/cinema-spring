@@ -1,6 +1,6 @@
 package com.ltw.cinema.feign.it;
 
-import cgm.ltw.cinema.impl.CinemaApplicationServer;
+import com.ltw.cinema.impl.CinemaApplicationServer;
 import com.ltw.cinema.api.feign.RoomClient;
 import feign.FeignException;
 import org.junit.jupiter.api.Test;
@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Import;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+//TODO FIX NULL
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class RoomClientTest {
     @Configuration
@@ -24,11 +25,11 @@ public class RoomClientTest {
 
     @Test
     public void shouldRetrieveExistingRoomViaFeignClient() {
-        assertNotNull(roomClient.getById(1L));
+        assertNotNull(roomClient.getById(1L, null));
     }
 
     @Test
     public void shouldReceiveExceptionOnRetrievingNonExistingRoomViaFeignClient() {
-        assertThrows(FeignException.class, () -> roomClient.getById(-1L));
+        assertThrows(FeignException.class, () -> roomClient.getById(-1L, null));
     }
 }

@@ -3,6 +3,7 @@ package com.ltw.cinema.gui.desktop.gui;
 import com.ltw.cinema.gui.casier.CasierMainPanel;
 
 import java.awt.*;
+import java.util.Objects;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,9 +15,14 @@ import java.awt.*;
  * @author uid22489
  */
 public class CasierGUI extends javax.swing.JFrame {
-    private final static CasierGUI singletonInstance = new CasierGUI();
+    private static CasierGUI singletonInstance;
+    private static String token;
 
     public static CasierGUI getInstance() {
+        if (Objects.isNull(singletonInstance)) {
+            singletonInstance = new CasierGUI();
+        }
+
         return singletonInstance;
     }
 
@@ -83,6 +89,14 @@ public class CasierGUI extends javax.swing.JFrame {
         xx = evt.getX();
         xy = evt.getY();
     }//GEN-LAST:event_formMousePressed
+
+    public static void setToken(String token) {
+        CasierGUI.token = token;
+    }
+
+    public static String getToken() {
+        return token;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

@@ -30,7 +30,7 @@
         </dependency>
         <dependency>
             <groupId>com.ltw</groupId>
-            <artifactId>cinema.api</artifactId>
+            <artifactId>cinema-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

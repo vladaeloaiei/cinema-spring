@@ -1,15 +1,15 @@
-package cgm.ltw.cinema.impl;
+package com.ltw.cinema.impl;
 
-import cgm.ltw.cinema.impl.model.Booking;
-import cgm.ltw.cinema.impl.model.Movie;
-import cgm.ltw.cinema.impl.model.MovieDetail;
-import cgm.ltw.cinema.impl.model.Room;
-import cgm.ltw.cinema.impl.model.Schedule;
-import cgm.ltw.cinema.impl.repository.BookingRepository;
-import cgm.ltw.cinema.impl.repository.MovieDetailRepository;
-import cgm.ltw.cinema.impl.repository.MovieRepository;
-import cgm.ltw.cinema.impl.repository.RoomRepository;
-import cgm.ltw.cinema.impl.repository.ScheduleRepository;
+import com.ltw.cinema.impl.model.Booking;
+import com.ltw.cinema.impl.model.Movie;
+import com.ltw.cinema.impl.model.MovieDetail;
+import com.ltw.cinema.impl.model.Room;
+import com.ltw.cinema.impl.model.Schedule;
+import com.ltw.cinema.impl.repository.BookingRepository;
+import com.ltw.cinema.impl.repository.MovieDetailRepository;
+import com.ltw.cinema.impl.repository.MovieRepository;
+import com.ltw.cinema.impl.repository.RoomRepository;
+import com.ltw.cinema.impl.repository.ScheduleRepository;
 import com.ltw.cinema.security.model.CinemaUser;
 import com.ltw.cinema.security.repository.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -20,7 +20,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication(scanBasePackages = {"com.ltw.cinema.security"})
+@SpringBootApplication(scanBasePackages = {"com.ltw.cinema"})
 @EnableFeignClients(basePackages = "com.ltw.cinema.api.feign")
 @EntityScan(basePackageClasses = {
         Booking.class,

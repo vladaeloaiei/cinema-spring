@@ -5,12 +5,12 @@ import com.ltw.cinema.api.feign.BookingClient;
 import com.ltw.cinema.gui.CinemaGUIApplication;
 import com.ltw.cinema.gui.desktop.gui.CasierGUI;
 import javafx.util.Pair;
-import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /*
@@ -24,7 +24,7 @@ import java.util.Optional;
  */
 public class CasierMainPanel extends JPanel {
 
-    private final static CasierMainPanel singletonInstance = new CasierMainPanel();
+    private static CasierMainPanel singletonInstance;
     private CasierWorkPanel casierWorkPanel;
 
     /**
@@ -39,6 +39,10 @@ public class CasierMainPanel extends JPanel {
     }
 
     public static CasierMainPanel getInstance() {
+        if (Objects.isNull(singletonInstance)) {
+            singletonInstance = new CasierMainPanel();
+        }
+
         return singletonInstance;
     }
 
@@ -312,7 +316,7 @@ public class CasierMainPanel extends JPanel {
 
             CinemaGUIApplication.getContext()
                     .getBean(BookingClient.class)
-                    .deleteByEmailAndScheduleId(CasierWorkPanel.emailList.getSelectedItem().toString(), CasierWorkPanel.currentScheduleDto.getId());
+                    .deleteByEmailAndScheduleId(CasierWorkPanel.emailList.getSelectedItem().toString(), CasierWorkPanel.currentScheduleDto.getId(), CasierGUI.getToken());
             JOptionPane.showMessageDialog(this, "Rezervare stearsă cu succes!",
                     "Info", JOptionPane.INFORMATION_MESSAGE);
 
@@ -339,7 +343,7 @@ public class CasierMainPanel extends JPanel {
             }
         }
 
-        CinemaGUIApplication.getContext().getBean(BookingClient.class).save(newBookingDtos);
+        CinemaGUIApplication.getContext().getBean(BookingClient.class).save(newBookingDtos, CasierGUI.getToken());
         JOptionPane.showMessageDialog(this, "Operațiune realizată cu succes!",
                 "Succes", JOptionPane.INFORMATION_MESSAGE);
         //JOptionPane.showMessageDialog(MainGUI.currentFrame, "A aparut o eroare la server. Nu s-a putut face inserarea!\nVa rugam reincercati!",

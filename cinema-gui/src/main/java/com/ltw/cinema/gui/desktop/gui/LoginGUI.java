@@ -226,14 +226,14 @@ public class LoginGUI extends JFrame {
             return;
         }
 
-        if (CinemaGUIApplication.getContext().getBean(UserClient.class).existsByUsername(user)) {
+        if (CinemaGUIApplication.getContext().getBean(UserClient.class).existsByUsername(user, CasierGUI.getToken())) {
             JOptionPane.showMessageDialog(this, "Acest username este existent!",
                     "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             // User does not exist
             UserDto userDto = new UserDto(null, user, pass, UserRole.UNDEFINED);
 
-            CinemaGUIApplication.getContext().getBean(UserClient.class).save(userDto);
+            CinemaGUIApplication.getContext().getBean(UserClient.class).save(userDto, CasierGUI.getToken());
             JOptionPane.showMessageDialog(this, "V-ați înregistrat cu succes! Așteptați un administrator să va dea drepturi.",
                     "Succes", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -244,16 +244,13 @@ public class LoginGUI extends JFrame {
         MainGUI mainGUI = CinemaGUIApplication.getMainGUI();
         String user = usernameField.getText();
         String pass = String.valueOf(passwordField.getPassword());
-        UserDto userDto = CinemaGUIApplication.getContext().getBean(UserClient.class).login(new UserDto(user, pass));
+        String token = CinemaGUIApplication.getContext().getBean(UserClient.class)
+                .authenticate(user, pass);
 
-        if (UserRole.CASHIER.equals(userDto.getUserRole())) {
-            mainGUI.getCurrentFrame().setVisible(false);
-            mainGUI.setCurrentFrame(CasierGUI.getInstance());
-            mainGUI.getCurrentFrame().setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(this, "This account does not have GUI.",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        CasierGUI.setToken(token);
+        mainGUI.getCurrentFrame().setVisible(false);
+        mainGUI.setCurrentFrame(CasierGUI.getInstance());
+        mainGUI.getCurrentFrame().setVisible(true);
 
         //TODO 404 not found
         //JOptionPane.showMessageDialog(MainGUI.currentFrame, "Invalid username or password.",

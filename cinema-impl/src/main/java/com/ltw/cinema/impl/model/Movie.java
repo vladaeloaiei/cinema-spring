@@ -1,4 +1,4 @@
-package cgm.ltw.cinema.impl.model;
+package com.ltw.cinema.impl.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,25 +10,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "SCHEDULES")
-public class Schedule {
+@Entity(name = "MOVIES")
+public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    private LocalDateTime startingAt;
-    @ManyToOne
-    @JoinColumn(name = "room_id", nullable = false)
-    private Room room;
-    @ManyToOne
-    @JoinColumn(name = "movie_id", nullable = false)
-    private Movie movie;
+    private String name;
+    private Short length;
+    @Column(nullable = false)
+    private Short price;
 }
